@@ -167,6 +167,130 @@ header.solid{
 .scroll-cue .line{width:1px; height:36px; background:linear-gradient(180deg, var(--accent), transparent); animation:cueMove 1.8s ease-in-out infinite;}
 @keyframes cueMove{0%{opacity:0} 40%{opacity:1} 100%{opacity:0}}
 
+/* ---------- Auth Modal ---------- */
+.modal-overlay{
+  position:fixed; inset:0; z-index:2000; display:flex; align-items:center; justify-content:center;
+  background:rgba(6,7,10,.72); backdrop-filter:blur(6px);
+  opacity:0; visibility:hidden; transition:opacity .35s var(--ease), visibility .35s var(--ease);
+  padding:24px;
+}
+.modal-overlay.open{opacity:1; visibility:visible;}
+.auth-modal{
+  width:100%; max-width:420px; position:relative;
+  background:linear-gradient(160deg, rgba(20,22,28,.96), rgba(11,11,11,.98));
+  border:1px solid var(--panel-border); border-radius:var(--radius-lg);
+  padding:36px 34px 32px; box-shadow:0 30px 90px -20px rgba(0,0,0,.7);
+  transform:translateY(18px) scale(.98); transition:transform .4s var(--ease);
+}
+.modal-overlay.open .auth-modal{transform:translateY(0) scale(1);}
+.auth-close{
+  position:absolute; top:18px; right:18px; width:34px; height:34px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+  background:rgba(255,255,255,.05); border:1px solid var(--panel-border); color:var(--ink-2);
+  font-size:16px; transition:.25s;
+}
+.auth-close:hover{background:rgba(255,77,94,.12); color:var(--down); border-color:rgba(255,77,94,.3);}
+.auth-tabs{display:flex; gap:6px; background:rgba(255,255,255,.04); border:1px solid var(--panel-border); border-radius:999px; padding:4px; margin-bottom:26px;}
+.auth-tab{flex:1; text-align:center; padding:10px 0; border-radius:999px; font-size:13.5px; font-weight:600; color:var(--ink-2); cursor:pointer; transition:.25s;}
+.auth-tab.active{background:linear-gradient(135deg,var(--royal),var(--accent)); color:#fff; box-shadow:0 6px 18px -6px rgba(0,87,255,.6);}
+.auth-head{margin-bottom:22px;}
+.auth-head h3{font-size:24px; font-weight:700; margin-bottom:6px;}
+.auth-head p{font-size:13.5px; color:var(--ink-2);}
+.auth-panel{display:none;}
+.auth-panel.active{display:block; animation:authFade .35s var(--ease);}
+@keyframes authFade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+.form-group{margin-bottom:16px;}
+.form-group label{display:block; font-size:12.5px; font-weight:600; color:var(--ink-2); margin-bottom:7px; letter-spacing:.02em;}
+.form-group input{
+  width:100%; padding:13px 15px; border-radius:var(--radius-sm); font-family:inherit; font-size:14.5px;
+  background:rgba(255,255,255,.045); border:1.5px solid var(--panel-border); color:#fff; transition:.25s;
+}
+.form-group input::placeholder{color:var(--ink-3);}
+.form-group input:focus{outline:none; border-color:var(--accent); background:rgba(30,144,255,.06); box-shadow:0 0 0 4px rgba(30,144,255,.12);}
+.form-row-split{display:flex; gap:12px;}
+.form-row-split .form-group{flex:1;}
+.auth-meta{display:flex; align-items:center; justify-content:space-between; margin:-4px 0 20px; font-size:12.5px; color:var(--ink-3);}
+.auth-meta a{color:var(--accent); font-weight:600;}
+.remember-row{display:flex; align-items:center; gap:8px;}
+.remember-row input{width:14px; height:14px; accent-color:var(--accent);}
+.auth-switch{text-align:center; margin-top:20px; font-size:13.5px; color:var(--ink-2);}
+.auth-switch a{color:var(--accent); font-weight:600;}
+.auth-divider{display:flex; align-items:center; gap:12px; margin:22px 0; color:var(--ink-3); font-size:12px; text-transform:uppercase; letter-spacing:.1em;}
+.auth-divider::before, .auth-divider::after{content:''; flex:1; height:1px; background:var(--panel-border);}
+.auth-social{display:flex; gap:10px;}
+.auth-social button{
+  flex:1; padding:11px 0; border-radius:var(--radius-sm); background:rgba(255,255,255,.04);
+  border:1.5px solid var(--panel-border); color:#fff; font-size:13.5px; font-weight:600; cursor:pointer; transition:.25s;
+}
+.auth-social button:hover{border-color:rgba(255,255,255,.35); background:rgba(255,255,255,.07);}
+
+/* ---------- Legal Modal ---------- */
+.legal-modal{max-width:520px;}
+#legalUpdated{color:var(--ink-3);}
+.legal-body{max-height:340px; overflow-y:auto; padding-right:6px; font-size:13.5px; line-height:1.75; color:var(--ink-2);}
+.legal-body p{margin-bottom:14px;}
+.legal-body h5{color:#fff; font-size:13.5px; margin:16px 0 6px; font-weight:600;}
+.legal-body::-webkit-scrollbar{width:6px;}
+.legal-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15); border-radius:6px;}
+
+/* ---------- Toast ---------- */
+.toast{
+  position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(20px);
+  background:rgba(18,20,26,.96); border:1px solid var(--panel-border); backdrop-filter:blur(14px);
+  padding:14px 22px; border-radius:var(--radius-sm); font-size:13.5px; font-weight:500;
+  display:flex; align-items:center; gap:10px; z-index:3000; box-shadow:0 20px 50px -14px rgba(0,0,0,.6);
+  opacity:0; visibility:hidden; transition:opacity .35s var(--ease), transform .35s var(--ease), visibility .35s var(--ease);
+}
+.toast.show{opacity:1; visibility:visible; transform:translateX(-50%) translateY(0);}
+.toast .dot-ok{width:8px; height:8px; border-radius:50%; background:var(--up); box-shadow:0 0 10px var(--up); flex-shrink:0;}
+
+/* ---------- Live Trading Chart ---------- */
+.trade-panel{
+  background:linear-gradient(160deg, rgba(255,255,255,.05), rgba(255,255,255,.015));
+  border:1px solid var(--panel-border); border-radius:var(--radius-lg); overflow:hidden;
+}
+.trade-panel-top{
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;
+  padding:22px 26px; border-bottom:1px solid var(--panel-border);
+}
+.symbol-tabs{display:flex; gap:8px; flex-wrap:wrap;}
+.sym-tab{
+  padding:9px 16px; border-radius:999px; font-size:13px; font-weight:600; color:var(--ink-2);
+  background:rgba(255,255,255,.04); border:1px solid var(--panel-border); cursor:pointer; transition:.25s;
+}
+.sym-tab:hover{color:#fff; border-color:rgba(255,255,255,.3);}
+.sym-tab.active{background:linear-gradient(135deg,var(--royal),var(--accent)); color:#fff; border-color:transparent; box-shadow:0 6px 18px -6px rgba(0,87,255,.6);}
+.live-price-block{display:flex; align-items:center; gap:14px;}
+.live-price-block .lp-price{font-family:'JetBrains Mono',monospace; font-size:26px; font-weight:600;}
+.live-price-block .lp-change{font-size:13px; font-weight:600; padding:4px 11px; border-radius:20px;}
+.live-dot{width:7px; height:7px; border-radius:50%; background:var(--up); box-shadow:0 0 10px var(--up); animation:livePulse 1.4s ease-in-out infinite; display:inline-block; margin-right:6px;}
+@keyframes livePulse{0%,100%{opacity:1;} 50%{opacity:.35;}}
+.trade-panel-body{display:grid; grid-template-columns:1fr 260px;}
+.chart-stage{position:relative; height:420px; border-right:1px solid var(--panel-border);}
+#liveChart{width:100%; height:100%; display:block;}
+.tf-row{position:absolute; top:14px; left:20px; display:flex; gap:6px; z-index:2;}
+.tf-btn{
+  padding:6px 12px; font-size:12px; font-weight:600; color:var(--ink-2);
+  background:rgba(11,11,11,.55); border:1px solid var(--panel-border); border-radius:8px; cursor:pointer; transition:.2s;
+}
+.tf-btn:hover{color:#fff;}
+.tf-btn.active{color:#fff; background:rgba(30,144,255,.18); border-color:rgba(30,144,255,.5);}
+.trade-side{padding:22px; display:flex; flex-direction:column; gap:16px;}
+.trade-order-row{display:flex; justify-content:space-between; font-size:12.5px; color:var(--ink-3); padding:8px 0; border-bottom:1px dashed var(--panel-border);}
+.trade-order-row span:last-child{color:#fff; font-family:'JetBrains Mono',monospace; font-weight:500;}
+.trade-btns{display:flex; flex-direction:column; gap:10px; margin-top:auto;}
+.btn-buy, .btn-sell{
+  border:none; border-radius:var(--radius-sm); padding:14px 0; font-weight:700; font-size:14.5px; cursor:pointer;
+  transition:transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.btn-buy{background:linear-gradient(135deg,#17C978,#0e9c5c); color:#fff; box-shadow:0 10px 26px -8px rgba(23,201,120,.55);}
+.btn-sell{background:linear-gradient(135deg,#FF4D5E,#d63142); color:#fff; box-shadow:0 10px 26px -8px rgba(255,77,94,.5);}
+.btn-buy:hover, .btn-sell:hover{transform:translateY(-2px);}
+@media(max-width:900px){
+  .trade-panel-body{grid-template-columns:1fr;}
+  .chart-stage{border-right:none; border-bottom:1px solid var(--panel-border); height:320px;}
+}
+
 /* ---------- Reveal ---------- */
 .reveal{opacity:0; transform:translateY(28px); transition:opacity .8s var(--ease), transform .8s var(--ease);}
 .reveal.in{opacity:1; transform:translateY(0);}
@@ -381,6 +505,7 @@ footer{background:#070707; border-top:1px solid var(--panel-border); padding:80p
     <nav class="nav-links">
       <a href="#home">Home</a>
       <a href="#markets">Markets</a>
+      <a href="#live-trading">Live Chart</a>
       <a href="#trading">Trading</a>
       <a href="#platforms">Platforms</a>
       <a href="#pricing">Pricing</a>
@@ -389,8 +514,8 @@ footer{background:#070707; border-top:1px solid var(--panel-border); padding:80p
       <a href="#contact">Contact</a>
     </nav>
     <div class="nav-actions">
-      <a href="#" class="btn btn-ghost btn-sm">Login</a>
-      <a href="#" class="btn btn-primary btn-sm">Register</a>
+      <a href="#" class="btn btn-ghost btn-sm" id="navLoginBtn">Login</a>
+      <a href="#" class="btn btn-primary btn-sm" id="navRegisterBtn">Register</a>
       <div class="burger" id="burger"><span></span><span></span><span></span></div>
     </div>
   </div>
@@ -399,552 +524,76 @@ footer{background:#070707; border-top:1px solid var(--panel-border); padding:80p
 <div class="mobile-nav" id="mobileNav">
   <a href="#home">Home</a>
   <a href="#markets">Markets</a>
+  <a href="#live-trading">Live Chart</a>
   <a href="#trading">Trading</a>
   <a href="#platforms">Platforms</a>
   <a href="#pricing">Pricing</a>
   <a href="#education">Education</a>
   <a href="#about">About</a>
   <a href="#contact">Contact</a>
-  <a href="#" class="btn btn-primary" style="margin-top:16px;">Open Account</a>
+  <a href="#" class="btn btn-primary" id="mobileRegisterBtn" style="margin-top:16px;">Open Account</a>
 </div>
 
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-grid-bg"></div>
-  <canvas id="chartCanvas"></canvas>
-  <div class="container hero-inner">
-    <div class="hero-copy reveal in">
-      <div class="eyebrow">Institutional-Grade Trading</div>
-      <h1>Trade Smarter. Invest Better. <span>Grow with PRELUX.</span></h1>
-      <p class="sub">Access global Forex, Crypto, Stocks, Commodities, and Indices with lightning-fast execution and institutional-grade security.</p>
-      <div class="hero-ctas">
-        <a href="#pricing" class="btn btn-primary">Open Account</a>
-        <a href="#platforms" class="btn btn-ghost">Start Trading</a>
-      </div>
-      <div class="stat-row">
-        <div class="stat"><div class="num"><span class="counter" data-target="500">0</span><span class="accentnum">K+</span></div><div class="label">Active Traders</div></div>
-        <div class="stat"><div class="num"><span class="counter" data-target="180">0</span><span class="accentnum">+</span></div><div class="label">Countries</div></div>
-        <div class="stat"><div class="num"><span class="counter" data-target="99.9" data-decimal="1">0</span><span class="accentnum">%</span></div><div class="label">Uptime</div></div>
-        <div class="stat"><div class="num">$<span class="counter" data-target="15">0</span><span class="accentnum">B+</span></div><div class="label">Monthly Volume</div></div>
-      </div>
-    </div>
-    <div class="hero-visual">
-      <div class="coin coin1">₿</div>
-      <div class="coin coin2">Ξ</div>
-      <div class="coin coin3">$</div>
-      <div class="float-card fc-1">
-        <div class="fc-row"><span class="fc-title">BTC / USD</span><span class="fc-change fc-up">+2.34%</span></div>
-        <div class="fc-price mono">67,842.10</div>
-        <svg class="mini-spark" viewBox="0 0 200 44" preserveAspectRatio="none"><polyline points="0,34 20,30 40,32 60,20 80,24 100,12 120,18 140,8 160,14 180,4 200,10" fill="none" stroke="#17C978" stroke-width="2"/></svg>
-      </div>
-      <div class="float-card fc-2">
-        <div class="fc-row"><span class="fc-title">EUR / USD</span><span class="fc-change fc-down">-0.12%</span></div>
-        <div class="fc-price mono">1.0842</div>
-        <svg class="mini-spark" viewBox="0 0 200 44" preserveAspectRatio="none"><polyline points="0,10 20,14 40,12 60,20 80,18 100,26 120,22 140,30 160,28 180,34 200,32" fill="none" stroke="#FF4D5E" stroke-width="2"/></svg>
-      </div>
-      <div class="float-card fc-3">
-        <div class="fc-row"><span class="fc-title">NASDAQ</span><span class="fc-change fc-up">+1.05%</span></div>
-        <div class="fc-price mono" style="font-size:16px;">18,532</div>
-      </div>
-    </div>
-  </div>
-  <div class="scroll-cue"><span>Scroll</span><div class="line"></div></div>
-</section>
+<!-- ===== AUTH MODAL (Login / Register) ===== -->
+<div class="modal-overlay" id="authModal">
+  <div class="auth-modal">
+    <div class="auth-close" id="authClose">✕</div>
 
-<!-- MARKETS -->
-<section class="section" id="markets">
-  <div class="container">
-    <div class="section-head reveal">
-      <div class="eyebrow">Global Markets</div>
-      <h2>One account. Every market.</h2>
-      <p>Trade across six major asset classes from a single PRELUX account, with unified margin and real-time pricing feeds sourced from top-tier liquidity providers.</p>
+    <div class="auth-tabs">
+      <div class="auth-tab active" data-panel="login">Login</div>
+      <div class="auth-tab" data-panel="register">Register</div>
     </div>
-    <div class="grid grid-3" id="marketsGrid">
-      <div class="market-card glass reveal">
-        <div class="m-icon">💱</div>
-        <h3>Forex</h3>
-        <p>Trade 60+ currency pairs with spreads from 0.0 pips and deep institutional liquidity.</p>
-        <div class="m-price-row"><span>EUR/USD</span><span class="m-price">1.0842</span></div>
-      </div>
-      <div class="market-card glass reveal">
-        <div class="m-icon">₿</div>
-        <h3>Cryptocurrency</h3>
-        <p>Access BTC, ETH and 40+ digital assets with 24/7 execution and no downtime.</p>
-        <div class="m-price-row"><span>BTC/USD</span><span class="m-price">67,842</span></div>
-      </div>
-      <div class="market-card glass reveal">
-        <div class="m-icon">📈</div>
-        <h3>Stocks</h3>
-        <p>Fractional and full-share access to 3,000+ global equities across major exchanges.</p>
-        <div class="m-price-row"><span>AAPL</span><span class="m-price">231.44</span></div>
-      </div>
-      <div class="market-card glass reveal">
-        <div class="m-icon">📊</div>
-        <h3>Indices</h3>
-        <p>Speculate on the direction of the world's leading benchmark indices.</p>
-        <div class="m-price-row"><span>NASDAQ</span><span class="m-price">18,532</span></div>
-      </div>
-      <div class="market-card glass reveal">
-        <div class="m-icon">🛢️</div>
-        <h3>Commodities</h3>
-        <p>Trade oil, natural gas and agricultural markets with flexible leverage.</p>
-        <div class="m-price-row"><span>WTI Crude</span><span class="m-price">78.21</span></div>
-      </div>
-      <div class="market-card glass reveal">
-        <div class="m-icon">🥇</div>
-        <h3>Metals</h3>
-        <p>Hedge and speculate on gold, silver and platinum with tight, transparent pricing.</p>
-        <div class="m-price-row"><span>Gold</span><span class="m-price">2,412.30</span></div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- WHY CHOOSE -->
-<section class="section" style="background:var(--gray); color:var(--black);" id="trading">
-  <div class="container">
-    <div class="section-head center reveal" style="margin-left:auto;margin-right:auto;">
-      <div class="eyebrow">Why PRELUX</div>
-      <h2 style="color:var(--black);">Built for traders who expect more</h2>
-      <p style="color:#525a63;">Every part of PRELUX is engineered around speed, transparency and protecting your capital.</p>
-    </div>
-    <div class="grid grid-3">
-      <div class="feature-card glass reveal" style="background:#fff; border-color:#e7ebf0;">
-        <div class="f-icon">⚡</div>
-        <h3 style="color:var(--black);">Ultra Fast Execution</h3>
-        <p style="color:#5c6672;">Orders processed in under 8ms through co-located servers across three continents.</p>
+    <!-- Login panel -->
+    <div class="auth-panel active" id="loginPanel">
+      <div class="auth-head">
+        <h3>Welcome back</h3>
+        <p>Log in to access your PRELUX trading account.</p>
       </div>
-      <div class="feature-card glass reveal" style="background:#fff; border-color:#e7ebf0;">
-        <div class="f-icon">📉</div>
-        <h3 style="color:var(--black);">Tight Spreads</h3>
-        <p style="color:#5c6672;">Raw institutional pricing with spreads starting from 0.0 pips on major pairs.</p>
-      </div>
-      <div class="feature-card glass reveal" style="background:#fff; border-color:#e7ebf0;">
-        <div class="f-icon">🔒</div>
-        <h3 style="color:var(--black);">Zero Hidden Fees</h3>
-        <p style="color:#5c6672;">Transparent, published pricing. No surprise charges on deposits or withdrawals.</p>
-      </div>
-      <div class="feature-card glass reveal" style="background:#fff; border-color:#e7ebf0;">
-        <div class="f-icon">🛡️</div>
-        <h3 style="color:var(--black);">Advanced Security</h3>
-        <p style="color:#5c6672;">Segregated client funds, 2FA, and bank-grade encryption on every account.</p>
-      </div>
-      <div class="feature-card glass reveal" style="background:#fff; border-color:#e7ebf0;">
-        <div class="f-icon">🤖</div>
-        <h3 style="color:var(--black);">AI Market Analysis</h3>
-        <p style="color:#5c6672;">Real-time, AI-generated insights and sentiment signals across every market.</p>
-      </div>
-      <div class="feature-card glass reveal" style="background:#fff; border-color:#e7ebf0;">
-        <div class="f-icon">🎧</div>
-        <h3 style="color:var(--black);">24/7 Customer Support</h3>
-        <p style="color:#5c6672;">Multilingual support around the clock via chat, phone and email.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PLATFORMS -->
-<section class="section platforms" id="platforms">
-  <div class="container platform-wrap">
-    <div class="reveal">
-      <div class="eyebrow">Trading Platforms</div>
-      <h2 style="font-size:clamp(28px,3.6vw,40px); font-weight:700; margin-bottom:26px;">Trade your way, on any device</h2>
-      <div class="platform-tabs">
-        <div class="p-tab active" data-tab="web">Web Trader</div>
-        <div class="p-tab" data-tab="mobile">Mobile App</div>
-        <div class="p-tab" data-tab="desktop">Desktop</div>
-      </div>
-      <div class="p-feat"><div class="chk">✓</div><p><strong>No download required</strong>Launch full charting and execution directly from your browser.</p></div>
-      <div class="p-feat"><div class="chk">✓</div><p><strong>Sync across devices</strong>Your watchlists, orders and layouts follow you everywhere.</p></div>
-      <div class="p-feat"><div class="chk">✓</div><p><strong>Advanced charting</strong>100+ indicators, drawing tools and multi-timeframe analysis.</p></div>
-      <a href="#" class="btn btn-primary" style="margin-top:12px;">Explore Platforms</a>
-    </div>
-    <div class="mockup-stage reveal">
-      <div class="glow-orb"></div>
-      <div class="laptop">
-        <div class="screen">
-          <svg width="100%" height="100%" viewBox="0 0 340 200"><polyline points="0,150 30,130 60,140 90,100 120,115 150,70 180,90 210,50 240,65 270,30 300,45 340,20" fill="none" stroke="#1E90FF" stroke-width="2.5"/></svg>
+      <form id="loginForm" novalidate>
+        <div class="form-group">
+          <label for="loginEmail">Email address</label>
+          <input type="email" id="loginEmail" placeholder="you@example.com" required>
         </div>
-        <div class="bar"></div>
-      </div>
-      <div class="phone">
-        <div class="pscreen">
-          <svg width="100%" height="60%" viewBox="0 0 100 60"><polyline points="0,50 15,40 30,45 45,25 60,30 75,10 100,18" fill="none" stroke="#0057FF" stroke-width="2"/></svg>
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" required minlength="6">
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TOOLS -->
-<section class="section" id="education">
-  <div class="container">
-    <div class="section-head reveal">
-      <div class="eyebrow">Trading Tools</div>
-      <h2>Everything you need to trade with confidence</h2>
-      <p>PRELUX bundles the research and risk tools professional desks use, built directly into your account.</p>
-    </div>
-    <div class="grid grid-3">
-      <div class="tool-card glass reveal"><div class="tool-icon">🗓️</div><div><h4>Economic Calendar</h4><p>Track high-impact events and data releases as they happen.</p></div></div>
-      <div class="tool-card glass reveal"><div class="tool-icon">📰</div><div><h4>Market News</h4><p>Real-time newswire from global financial sources.</p></div></div>
-      <div class="tool-card glass reveal"><div class="tool-icon">📡</div><div><h4>Trading Signals</h4><p>Curated entry and exit ideas across major instruments.</p></div></div>
-      <div class="tool-card glass reveal"><div class="tool-icon">🧠</div><div><h4>AI Assistant</h4><p>Ask questions about markets, positions and strategy in plain language.</p></div></div>
-      <div class="tool-card glass reveal"><div class="tool-icon">🧮</div><div><h4>Profit Calculator</h4><p>Model pip value, margin and potential P&L before you trade.</p></div></div>
-      <div class="tool-card glass reveal"><div class="tool-icon">⚖️</div><div><h4>Risk Management</h4><p>Set stop-loss, take-profit and exposure limits automatically.</p></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="section" id="pricing" style="background:linear-gradient(180deg,#0B0B0B,#0d1420 50%,#0B0B0B);">
-  <div class="container">
-    <div class="section-head center reveal">
-      <div class="eyebrow">Account Types</div>
-      <h2>Pricing built for every stage</h2>
-      <p>From your first trade to institutional volume, choose an account structure that fits your strategy.</p>
-    </div>
-    <div class="grid pricing-grid">
-      <div class="price-card glass reveal">
-        <h3>Starter</h3>
-        <p class="p-desc">For traders just getting started.</p>
-        <div class="p-amount">$50 <span>min. deposit</span></div>
-        <ul class="p-list">
-          <li><span class="ic">✓</span>Standard spreads</li>
-          <li><span class="ic">✓</span>All 6 asset classes</li>
-          <li><span class="ic">✓</span>Web & mobile access</li>
-          <li><span class="ic">✓</span>Email support</li>
-        </ul>
-        <a href="#" class="btn btn-ghost btn-block">Get Started</a>
-      </div>
-      <div class="price-card glass popular reveal">
-        <div class="badge-pop">Most Popular</div>
-        <h3>Standard</h3>
-        <p class="p-desc">For active, regular traders.</p>
-        <div class="p-amount">$500 <span>min. deposit</span></div>
-        <ul class="p-list">
-          <li><span class="ic">✓</span>Lower spreads</li>
-          <li><span class="ic">✓</span>Priority support</li>
-          <li><span class="ic">✓</span>Free VPS eligibility</li>
-          <li><span class="ic">✓</span>Advanced charting</li>
-        </ul>
-        <a href="#" class="btn btn-primary btn-block">Get Started</a>
-      </div>
-      <div class="price-card glass reveal">
-        <h3>Premium</h3>
-        <p class="p-desc">For serious, high-volume traders.</p>
-        <div class="p-amount">$10K <span>min. deposit</span></div>
-        <ul class="p-list">
-          <li><span class="ic">✓</span>Personal account manager</li>
-          <li><span class="ic">✓</span>VIP webinars</li>
-          <li><span class="ic">✓</span>Ultra-tight spreads</li>
-          <li><span class="ic">✓</span>Priority execution</li>
-        </ul>
-        <a href="#" class="btn btn-ghost btn-block">Get Started</a>
-      </div>
-      <div class="price-card glass reveal">
-        <h3>Institutional</h3>
-        <p class="p-desc">For funds, desks and partners.</p>
-        <div class="p-amount">Custom</div>
-        <ul class="p-list">
-          <li><span class="ic">✓</span>Custom pricing</li>
-          <li><span class="ic">✓</span>API trading</li>
-          <li><span class="ic">✓</span>Dedicated liquidity</li>
-          <li><span class="ic">✓</span>White-glove onboarding</li>
-        </ul>
-        <a href="#" class="btn btn-ghost btn-block">Contact Sales</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker-track" id="tickerTrack"></div>
-</div>
-
-<!-- TESTIMONIALS -->
-<section class="section" id="about">
-  <div class="container">
-    <div class="section-head center reveal">
-      <div class="eyebrow">Trusted Worldwide</div>
-      <h2>What our traders say</h2>
-    </div>
-    <div class="grid grid-3">
-      <div class="test-card glass reveal">
-        <div class="stars">★★★★★</div>
-        <p class="test-quote">"Execution speed is genuinely faster than anywhere I've traded before. Spreads on majors are excellent."</p>
-        <div class="test-user"><div class="avatar">D</div><div><div class="name">Daniel K.</div><div class="country">Germany</div></div></div>
-      </div>
-      <div class="test-card glass reveal">
-        <div class="stars">★★★★★</div>
-        <p class="test-quote">"Withdrawals landed in my account within hours. Support actually knows what they're talking about."</p>
-        <div class="test-user"><div class="avatar">A</div><div><div class="name">Amara O.</div><div class="country">Nigeria</div></div></div>
-      </div>
-      <div class="test-card glass reveal">
-        <div class="stars">★★★★★</div>
-        <p class="test-quote">"The AI assistant and risk tools alone are worth switching for. Feels like a professional desk setup."</p>
-        <div class="test-user"><div class="avatar">S</div><div><div class="name">Sofia R.</div><div class="country">Philippines</div></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="section" style="background:var(--gray); color:var(--black);">
-  <div class="container">
-    <div class="section-head center reveal">
-      <div class="eyebrow">FAQ</div>
-      <h2 style="color:var(--black);">Common questions</h2>
-    </div>
-    <div class="faq-list">
-      <div class="faq-item reveal">
-        <div class="faq-q">How do I open a PRELUX account?<span class="plus">+</span></div>
-        <div class="faq-a"><p>Register online, verify your identity, and fund your account — most traders are live within minutes.</p></div>
-      </div>
-      <div class="faq-item reveal">
-        <div class="faq-q">What is the minimum deposit?<span class="plus">+</span></div>
-        <div class="faq-a"><p>The Starter account requires just $50, with higher tiers available as your trading grows.</p></div>
-      </div>
-      <div class="faq-item reveal">
-        <div class="faq-q">How long do withdrawals take?<span class="plus">+</span></div>
-        <div class="faq-a"><p>Most withdrawals are processed within 24 hours, with many completing same-day.</p></div>
-      </div>
-      <div class="faq-item reveal">
-        <div class="faq-q">How is my money kept secure?<span class="plus">+</span></div>
-        <div class="faq-a"><p>Client funds are held in segregated accounts with top-tier banking partners and protected by bank-grade encryption.</p></div>
-      </div>
-      <div class="faq-item reveal">
-        <div class="faq-q">What leverage is available?<span class="plus">+</span></div>
-        <div class="faq-a"><p>Leverage varies by asset class and region, up to 1:500 for eligible accounts.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section style="padding:100px 0;">
-  <div class="cta-section reveal">
-    <h2>Start Your Trading Journey Today</h2>
-    <p>Join 500,000+ traders across 180+ countries who trade with PRELUX.</p>
-    <div class="cta-btns">
-      <a href="#" class="btn btn-primary">Open Free Account</a>
-      <a href="#contact" class="btn btn-ghost">Contact Sales</a>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer id="contact">
-  <div class="container">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <a href="#home" class="logo"><span class="dot"></span>PRELUX</a>
-        <p>Institutional-grade access to global Forex, Crypto, Stocks, Commodities and Indices markets.</p>
-        <div class="social-row">
-          <a href="#">𝕏</a><a href="#">in</a><a href="#">◎</a><a href="#">▶</a>
+        <div class="auth-meta">
+          <label class="remember-row"><input type="checkbox"> Remember me</label>
+          <a href="#">Forgot password?</a>
         </div>
+        <button type="submit" class="btn btn-primary btn-block">Log In</button>
+      </form>
+      <div class="auth-divider">or</div>
+      <div class="auth-social">
+        <button type="button">Google</button>
+        <button type="button">Apple</button>
       </div>
-      <div class="foot-col">
-        <h4>Company</h4>
-        <ul><li><a href="#about">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Press</a></li><li><a href="#contact">Contact</a></li></ul>
-      </div>
-      <div class="foot-col">
-        <h4>Products</h4>
-        <ul><li><a href="#markets">Forex</a></li><li><a href="#markets">Crypto</a></li><li><a href="#markets">Stocks</a></li><li><a href="#markets">Commodities</a></li></ul>
-      </div>
-      <div class="foot-col">
-        <h4>Legal</h4>
-        <ul><li><a href="#">Terms of Service</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Risk Disclosure</a></li><li><a href="#">Regulatory</a></li></ul>
-      </div>
-      <div class="foot-col">
-        <h4>Newsletter</h4>
-        <p style="color:var(--ink-3); font-size:13.5px; margin-bottom:4px;">Market insights, in your inbox.</p>
-        <div class="newsletter-box"><input type="email" placeholder="Your email"><button>Join</button></div>
-      </div>
+      <div class="auth-switch">Don't have an account? <a href="#" data-switch="register">Register</a></div>
     </div>
-    <p class="risk-note">Trading CFDs and leveraged products carries a high level of risk and may not be suitable for all investors. You could sustain a loss of some or all of your invested capital; do not invest money you cannot afford to lose. PRELUX does not provide financial advice.</p>
-    <div class="foot-bottom">
-      <span>© 2026 PRELUX. All rights reserved.</span>
-      <span>Trade Smarter. Invest Better.</span>
-    </div>
-  </div>
-</footer>
 
-<script>
-// ---------- Loader ----------
-window.addEventListener('load', ()=>{
-  setTimeout(()=>{ document.getElementById('loader').classList.add('hide'); }, 900);
-});
-
-// ---------- Navbar solid on scroll ----------
-const header = document.getElementById('siteHeader');
-window.addEventListener('scroll', ()=>{
-  if(window.scrollY > 40){ header.classList.add('solid'); } else { header.classList.remove('solid'); }
-});
-
-// ---------- Mobile nav ----------
-const burger = document.getElementById('burger');
-const mobileNav = document.getElementById('mobileNav');
-burger.addEventListener('click', ()=>{
-  mobileNav.classList.toggle('open');
-});
-mobileNav.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>mobileNav.classList.remove('open')));
-
-// ---------- Scroll reveal ----------
-const revealEls = document.querySelectorAll('.reveal');
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-  });
-}, {threshold:0.15});
-revealEls.forEach(el=>io.observe(el));
-
-// ---------- Animated counters ----------
-const counters = document.querySelectorAll('.counter');
-const counterIO = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      const el = entry.target;
-      const target = parseFloat(el.dataset.target);
-      const decimals = parseInt(el.dataset.decimal || "0");
-      let cur = 0;
-      const dur = 1600;
-      const start = performance.now();
-      function tick(now){
-        const p = Math.min((now-start)/dur, 1);
-        const eased = 1 - Math.pow(1-p, 3);
-        cur = target * eased;
-        el.textContent = decimals ? cur.toFixed(decimals) : Math.floor(cur);
-        if(p < 1) requestAnimationFrame(tick); else el.textContent = decimals ? target.toFixed(decimals) : target;
-      }
-      requestAnimationFrame(tick);
-      counterIO.unobserve(el);
-    }
-  });
-}, {threshold:0.4});
-counters.forEach(c=>counterIO.observe(c));
-
-// ---------- Hero candlestick canvas ----------
-const canvas = document.getElementById('chartCanvas');
-const ctx = canvas.getContext('2d');
-let W, H;
-function resize(){
-  W = canvas.width = canvas.offsetWidth * devicePixelRatio;
-  H = canvas.height = canvas.offsetHeight * devicePixelRatio;
-}
-resize();
-window.addEventListener('resize', resize);
-
-let candles = [];
-function initCandles(){
-  candles = [];
-  const count = 46;
-  let price = 100;
-  for(let i=0;i<count;i++){
-    const open = price;
-    const change = (Math.random()-0.48) * 6;
-    const close = open + change;
-    const high = Math.max(open,close) + Math.random()*3;
-    const low = Math.min(open,close) - Math.random()*3;
-    candles.push({open, close, high, low});
-    price = close;
-  }
-}
-initCandles();
-
-let offset = 0;
-function drawCandles(t){
-  ctx.clearRect(0,0,W,H);
-  const dpr = devicePixelRatio;
-  const cw = 26*dpr;
-  const gap = 10*dpr;
-  const baseY = H*0.72;
-  const scale = (H*0.4)/40;
-
-  // find min/max for normalization
-  let allVals = [];
-  candles.forEach(c=>{allVals.push(c.high, c.low);});
-  const minV = Math.min(...allVals), maxV = Math.max(...allVals);
-  const range = maxV - minV || 1;
-
-  candles.forEach((c,i)=>{
-    const x = i*(cw+gap) - offset;
-    if(x < -cw || x > W+cw) return;
-    const yOpen = baseY - ((c.open-minV)/range) * H*0.5;
-    const yClose = baseY - ((c.close-minV)/range) * H*0.5;
-    const yHigh = baseY - ((c.high-minV)/range) * H*0.5;
-    const yLow = baseY - ((c.low-minV)/range) * H*0.5;
-    const up = c.close >= c.open;
-    ctx.strokeStyle = up ? 'rgba(23,201,120,0.55)' : 'rgba(255,77,94,0.5)';
-    ctx.fillStyle = up ? 'rgba(23,201,120,0.28)' : 'rgba(255,77,94,0.22)';
-    ctx.lineWidth = 1.5*dpr;
-    // wick
-    ctx.beginPath();
-    ctx.moveTo(x+cw/2, yHigh);
-    ctx.lineTo(x+cw/2, yLow);
-    ctx.stroke();
-    // body
-    const top = Math.min(yOpen,yClose);
-    const bh = Math.max(Math.abs(yClose-yOpen), 2*dpr);
-    ctx.fillRect(x, top, cw, bh);
-    ctx.strokeRect(x, top, cw, bh);
-  });
-
-  offset += 0.35*devicePixelRatio;
-  if(offset > (26*devicePixelRatio+10*devicePixelRatio)){
-    offset = 0;
-    candles.shift();
-    const last = candles[candles.length-1];
-    const open = last.close;
-    const change = (Math.random()-0.48) * 6;
-    const close = open + change;
-    const high = Math.max(open,close) + Math.random()*3;
-    const low = Math.min(open,close) - Math.random()*3;
-    candles.push({open, close, high, low});
-  }
-  requestAnimationFrame(drawCandles);
-}
-requestAnimationFrame(drawCandles);
-
-// ---------- Platform tabs (visual only) ----------
-document.querySelectorAll('.p-tab').forEach(tab=>{
-  tab.addEventListener('click', ()=>{
-    document.querySelectorAll('.p-tab').forEach(t=>t.classList.remove('active'));
-    tab.classList.add('active');
-  });
-});
-
-// ---------- FAQ accordion ----------
-document.querySelectorAll('.faq-item').forEach(item=>{
-  item.querySelector('.faq-q').addEventListener('click', ()=>{
-    const wasOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
-    if(!wasOpen) item.classList.add('open');
-  });
-});
-
-// ---------- Live ticker ----------
-const tickerData = [
-  {sym:'BTC/USD', val:'67,842.10', chg:'+2.34%', up:true},
-  {sym:'EUR/USD', val:'1.0842', chg:'-0.12%', up:false},
-  {sym:'NASDAQ', val:'18,532.4', chg:'+1.05%', up:true},
-  {sym:'GOLD', val:'2,412.30', chg:'+0.48%', up:true},
-  {sym:'OIL (WTI)', val:'78.21', chg:'-0.65%', up:false},
-  {sym:'AAPL', val:'231.44', chg:'+0.92%', up:true},
-  {sym:'TSLA', val:'268.77', chg:'-1.14%', up:false},
-  {sym:'ETH/USD', val:'3,542.60', chg:'+3.02%', up:true},
-];
-const track = document.getElementById('tickerTrack');
-function buildTicker(){
-  let html = '';
-  for(let r=0;r<2;r++){
-    tickerData.forEach(d=>{
-      html += `<div class="tick-item"><span class="sym">${d.sym}</span><span class="val">${d.val}</span><span class="chg" style="color:${d.up?'#17C978':'#FF4D5E'}">${d.chg}</span></div>`;
-    });
-  }
-  track.innerHTML = html;
-}
-buildTicker();
-</script>
-</body>
-</html>
+    <!-- Register panel -->
+    <div class="auth-panel" id="registerPanel">
+      <div class="auth-head">
+        <h3>Create your account</h3>
+        <p>Start trading with PRELUX in minutes — no hidden fees.</p>
+      </div>
+      <form id="registerForm" novalidate>
+        <div class="form-row-split">
+          <div class="form-group">
+            <label for="regFirst">First name</label>
+            <input type="text" id="regFirst" placeholder="Jane" required>
+          </div>
+          <div class="form-group">
+            <label for="regLast">Last name</label>
+            <input type="text" id="regLast" placeholder="Doe" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="regEmail">Email address</label>
+          <input type="email" id="regEmail" placeholder="you@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="regPassword">Password</label>
+          <input type="password" id="regPassword" placeholder="Minimum 8 characters" required minlength="8">
